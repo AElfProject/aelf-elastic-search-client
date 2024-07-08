@@ -1,7 +1,7 @@
 on:
   push:
     tags:
-      - 'aelf-elastic-search-client-v*'
+      - 'v*'
 
 jobs:
   publish:
@@ -41,12 +41,12 @@ jobs:
         with:
           dotnet-version: '7.0.*'  # Change this to the .NET version you're using
 
-      - name: Read version from Version.props
+      - name: Extract version from tag
         if: env.IS_ON_MASTER == 'true'
-        working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          version=$(grep -oP '<Version>\K[^<]+' Version.props)
-          echo "VERSION=$version" >> $GITHUB_ENV
+          TAG_NAME=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
+          VERSION=${TAG_NAME#v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Pack
         if: env.IS_ON_MASTER == 'true'
@@ -57,4 +57,4 @@ jobs:
         if: env.IS_ON_MASTER == 'true'
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: |
-          dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.TEMPLATES_NUGET_API_KEY }} --source ${{ vars.TEMPLATES_NUGET_SOURCE_URL }}
+          dotnet nuget push "nupkgs/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source ${{ vars.NUGET_SOURCE_URL }}
