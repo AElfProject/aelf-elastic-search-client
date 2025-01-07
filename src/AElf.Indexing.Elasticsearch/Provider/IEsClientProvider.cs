@@ -20,7 +20,8 @@ namespace AElf.Indexing.Elasticsearch.Provider
         {
             var uris = uriOptions.Value.Uris.ConvertAll(x => new Uri(x));
             var connectionPool = new StaticConnectionPool(uris);
-            var settings = new ConnectionSettings(connectionPool);
+            var settings = new ConnectionSettings(connectionPool)
+                .EnableApiVersioningHeader();
             _client = new Lazy<ElasticClient>(() => new ElasticClient(settings));
         }
         public ElasticClient GetClient()
