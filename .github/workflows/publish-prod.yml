@@ -47,6 +47,16 @@ jobs:
           TAG_NAME=$(echo $GITHUB_REF | sed 's/refs\/tags\///')
           VERSION=${TAG_NAME#v}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
+          
+      - name: Restore dependencies
+        if: env.IS_ON_MASTER == 'true'
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: dotnet restore
+
+      - name: Build project
+        if: env.IS_ON_MASTER == 'true'
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: dotnet build --configuration Release
 
       - name: Pack
         if: env.IS_ON_MASTER == 'true'
