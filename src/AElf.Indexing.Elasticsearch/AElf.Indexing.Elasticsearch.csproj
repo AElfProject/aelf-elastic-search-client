@@ -8,7 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="NEST.JsonNetSerializer" Version="7.17.1" />
+        <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.17.0" />
+        <PackageReference Include="NEST.JsonNetSerializer" Version="7.17.5" />
         <PackageReference Include="Volo.Abp.Autofac" Version="5.2.1" />
         <PackageReference Include="Volo.Abp.Ddd.Domain" Version="5.2.1" />
     </ItemGroup>
@@ -20,9 +21,9 @@
       <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
       <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="NEST" Version="7.17.1" />
-    </ItemGroup>
+<!--    <ItemGroup>-->
+<!--        <PackageReference Include="NEST" Version="7.17.5" />-->
+<!--    </ItemGroup>-->
     
     <ItemGroup>
         <None Include="../../README.md" Pack="true" PackagePath="" />
